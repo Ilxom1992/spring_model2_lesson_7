@@ -9,17 +9,16 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegisterDto {
-@NotNull(message = "Fullname bolmasligi kerak")
+public class UserDto {
+    @NotNull(message = "Fullname bolmasligi kerak")
     private String fullName;
 
-@NotNull(message = "username bosh bolmasligi kerak")
+    @NotNull(message = "username bosh bolmasligi kerak")
     private String username;
 
-@NotNull(message = "password bosh bolmasligi kerak")
+    @NotNull(message = "password bosh bolmasligi kerak")
     private String password;
 
-@NotNull(message = "password takrori bosh bolmasligi kerak")
-    private String prePassword;
-
+    @NotNull(message = "Lavozim bosh bolmasligi kerak")
+    private Integer positionId;
 }

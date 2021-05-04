@@ -38,6 +38,7 @@ public class User extends AbstractEntity implements UserDetails{
     private Position position;
 
     private boolean enabled;
+
        @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<Huquq> huquqList = this.position.getHuquqList();
