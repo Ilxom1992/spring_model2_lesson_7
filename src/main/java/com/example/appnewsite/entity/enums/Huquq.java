@@ -14,6 +14,7 @@ public enum Huquq {
     EDIT_POST,
     DELETE_POST,
     ADD_COMMIT,
+    EDIT_COMMIT,
     DELETE_COMMIT,
     DELETE_MY_COMMIT,
 

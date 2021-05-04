@@ -1,4 +1,4 @@
-package com.example.appnewsite.entity;
+package com.example.appnewsite.entity.Tamplate;
 
 public enum PositionTypes {
     ROLE_ADMIN,
