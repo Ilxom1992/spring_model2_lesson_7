@@ -6,10 +6,8 @@ import com.example.appnewsite.payload.UserDto;
 import com.example.appnewsite.service.PositionService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,9 +19,15 @@ public class PositionController {
     public PositionController(PositionService positionService) {
         this.positionService = positionService;
     }
-    @PostMapping("/user")
-    public HttpEntity<?> register(@RequestBody PositionDto positionDto) {
+    @PreAuthorize(value = "hasAnyAuthority('ADD_LAVOZIM')")
+    @PostMapping("/role")
+    public HttpEntity<?> addLavozim(@RequestBody PositionDto positionDto) {
         final ApiResponse response = positionService.addPosition(positionDto);
+        return ResponseEntity.status(response.isSuccess() ? 201 : 409).body(response);
+    }
+    @PostMapping("/role/{id}")
+    public HttpEntity<?> editLavozim(@PathVariable Long id, @RequestBody PositionDto positionDto) {
+        final ApiResponse response = positionService.editPosition(id,positionDto);
         return ResponseEntity.status(response.isSuccess() ? 201 : 409).body(response);
     }
 }

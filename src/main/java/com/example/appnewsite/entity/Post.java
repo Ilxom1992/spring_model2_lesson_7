@@ -15,6 +15,7 @@ import javax.persistence.Entity;
 @AllArgsConstructor
 @Entity
 public class Post extends AbstractEntity {
+
     @Column(nullable = false,columnDefinition = "text")
 private  String title;
     @Column(nullable = false,columnDefinition = "text")

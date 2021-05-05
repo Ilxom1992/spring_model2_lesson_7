@@ -21,7 +21,6 @@ final UserService userService;
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
     @PostMapping("/register")
     public HttpEntity<?> register(@RequestBody UserDto userDto, HttpServletRequest httpServletRequest) {
         final ApiResponse response = userService.addUser(userDto,httpServletRequest);

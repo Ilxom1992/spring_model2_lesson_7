@@ -6,6 +6,8 @@ import com.example.appnewsite.payload.PositionDto;
 import com.example.appnewsite.repository.PositionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class PositionService {
     final PositionRepository positionRepository;
@@ -26,5 +28,17 @@ public class PositionService {
         positionRepository.save(position);
         return new ApiResponse("Lavozim saqlandi",true);
 
+    }
+    public ApiResponse editPosition(Long id, PositionDto positionDto) {
+        Optional<Position> optionalPosition = positionRepository.findById(id);
+        if (!optionalPosition.isPresent()){
+            return new ApiResponse("Lavozim sizga berilmagan",false);
+        }
+        Position position = optionalPosition.get();
+        position.setName(positionDto.getName());
+        position.setDescriptin(position.getDescriptin());
+        position.setHuquqList(position.getHuquqList());
+        positionRepository.save(position);
+        return new ApiResponse("Lavozim saqlandi",true);
     }
 }
