@@ -35,7 +35,7 @@ public class JwtProvider {
                 .setSubject(username)
                 .setIssuedAt(new Date())
                 .setExpiration(expireDate)
-                .claim("roles", positions.toString())
+                .claim("roles", positions.getName())
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
         return token;

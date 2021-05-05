@@ -8,6 +8,7 @@ import com.example.appnewsite.repository.PositionRepository;
 import com.example.appnewsite.repository.UserRepository;
 import com.example.appnewsite.utils.AppConstants;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class AuthService {
+public class AuthService implements UserDetailsService {
     final UserRepository userRepository;
     final PositionRepository positionRepository;
     final PasswordEncoder passwordEncoder;

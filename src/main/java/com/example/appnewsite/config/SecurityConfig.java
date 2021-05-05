@@ -1,10 +1,12 @@
 package com.example.appnewsite.config;
 
 import com.example.appnewsite.security.JwtFilter;
+import com.example.appnewsite.service.AuthService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,9 +21,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     final JwtFilter  jwtFilter;
+    final AuthService authService;
 
-    public SecurityConfig(@Lazy JwtFilter jwtFilter) {
+    public SecurityConfig(@Lazy JwtFilter jwtFilter,@Lazy AuthService authService) {
         this.jwtFilter = jwtFilter;
+        this.authService = authService;
     }
 
     @Bean
@@ -29,6 +33,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(authService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -41,9 +55,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated();
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+
 }

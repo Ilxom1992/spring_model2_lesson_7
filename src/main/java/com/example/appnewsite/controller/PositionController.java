@@ -19,12 +19,13 @@ public class PositionController {
     public PositionController(PositionService positionService) {
         this.positionService = positionService;
     }
-    @PreAuthorize(value = "hasAnyAuthority('ADD_LAVOZIM')")
+   @PreAuthorize(value = "hasAnyAuthority('ADD_ROLE')")
     @PostMapping("/role")
     public HttpEntity<?> addLavozim(@RequestBody PositionDto positionDto) {
         final ApiResponse response = positionService.addPosition(positionDto);
         return ResponseEntity.status(response.isSuccess() ? 201 : 409).body(response);
     }
+    @PreAuthorize(value = "hasAnyAuthority('EDIT_ROLE')")
     @PostMapping("/role/{id}")
     public HttpEntity<?> editLavozim(@PathVariable Long id, @RequestBody PositionDto positionDto) {
         final ApiResponse response = positionService.editPosition(id,positionDto);

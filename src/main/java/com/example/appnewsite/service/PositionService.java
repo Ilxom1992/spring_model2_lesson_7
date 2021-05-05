@@ -23,7 +23,7 @@ public class PositionService {
         }
         Position position=new Position();
         position.setName(positionDto.getName());
-        position.setDescriptin(position.getDescriptin());
+        position.setDescriptin(positionDto.getDescription());
         position.setHuquqList(position.getHuquqList());
         positionRepository.save(position);
         return new ApiResponse("Lavozim saqlandi",true);

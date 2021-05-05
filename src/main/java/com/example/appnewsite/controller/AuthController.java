@@ -6,6 +6,7 @@ import com.example.appnewsite.payload.LoginDto;
 import com.example.appnewsite.payload.RegisterDto;
 import com.example.appnewsite.security.JwtProvider;
 import com.example.appnewsite.service.AuthService;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,7 +29,7 @@ public class AuthController {
     final JwtProvider jwtProvider;
 
 
-    public AuthController(AuthService authService, AuthenticationManager authenticationManager, JwtProvider jwtProvider) {
+    public AuthController(AuthService authService, AuthenticationManager authenticationManager,@Lazy JwtProvider jwtProvider) {
         this.authService = authService;
         this.authenticationManager = authenticationManager;
         this.jwtProvider = jwtProvider;
@@ -45,7 +46,6 @@ public class AuthController {
         Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDto.getUsername(), loginDto.getPassword()));
         User user= (User)authenticate.getPrincipal();
         String token = jwtProvider.generateToken(user.getUsername(), user.getPosition());
-
         return ResponseEntity.ok(token);
     }
 }

@@ -16,10 +16,10 @@ import java.util.List;
 public class Position extends AbstractEntity {
 @Column(unique = true,nullable = false)
     private  String name;//ADMIN,USER VA BOSHQALAR
-    private  String descriptin;
 
 
     @Enumerated(value = EnumType.STRING)
     @ElementCollection(fetch = FetchType.LAZY)
     private List<Huquq> huquqList;
+    private  String descriptin;
 }
